@@ -20,6 +20,7 @@ func main() {
 		if err != nil {
 			_, _ = fmt.Fprintln(os.Stderr, err)
 			fmt.Println("Retrying once...")
+			cmd = exec.Command("git", "push", matches[i][1])
 			retry := cmd.Run()
 			if retry != nil {
 				_, _ = fmt.Fprintln(os.Stderr, retry)
