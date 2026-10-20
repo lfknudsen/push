@@ -10,6 +10,10 @@ import (
 var rx = regexp.MustCompile(` *\[remote "([^"]+)"] *`)
 
 func main() {
+	if len(os.Args) != 1 {
+		_, _ = fmt.Fprint(os.Stderr, "No arguments expected.\n")
+		os.Exit(1)
+	}
 	content, _ := os.ReadFile(".git/config")
 	matches := rx.FindAllStringSubmatch(string(content), -1)
 	for i := range matches {
