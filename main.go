@@ -17,6 +17,7 @@ func main() {
 	content, _ := os.ReadFile(".git/config")
 	matches := rx.FindAllStringSubmatch(string(content), -1)
 	for i := range matches {
+		fmt.Printf("\033[34mPushing to %s:\033[0m\n", matches[i][1])
 		cmd := exec.Command("git", "push", matches[i][1])
 		cmd.Stdout = os.Stdout
 		cmd.Stderr = os.Stderr
