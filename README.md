@@ -23,6 +23,7 @@ push
 
 [Repo](https://gitlab.com/lfknudsen/repo): A programme to automatically create repositories\
 with GitLab, GitHub, and/or Codeberg and register them as remotes, all with a single command.\
+Also supports editing project description and visibility.
 
 
 [Install](https://gitlab.com/lfknudsen/install): A programme to easily install newly-compiled binaries.\
