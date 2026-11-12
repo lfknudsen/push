@@ -9,14 +9,18 @@ Requires `git` to be installed and on your PATH.
 
 ## Compile
 
-```
+```shell
 go build
 ```
 
 ## Usage
 
-```
-push
+```shell
+push [OPTIONS]
+
+Options:
+-tag <tag name>             Push the given tag to each remote repository
+-h                          Print this message and exit.
 ```
 
 ## See also
