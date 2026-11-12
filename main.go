@@ -1,6 +1,7 @@
 package main
 
 import (
+	"flag"
 	"fmt"
 	"os"
 	"os/exec"
@@ -9,16 +10,30 @@ import (
 
 var rx = regexp.MustCompile(` *\[remote "([^"]+)"] *`)
 
+var tag = flag.String("tag", "", "Tag to push to each remote repository.")
+var help = flag.Bool("h", false, "Print this message and exit.")
+
+func printHelp() {
+	fmt.Println("Usage: push [OPTIONS]\n\nOptions:")
+	flag.PrintDefaults()
+}
+
 func main() {
-	if len(os.Args) != 1 {
-		_, _ = fmt.Fprint(os.Stderr, "No arguments expected.\n")
-		os.Exit(1)
+	flag.Usage = printHelp
+	flag.Parse()
+	if *help {
+		printHelp()
+		os.Exit(0)
 	}
+
 	content, _ := os.ReadFile(".git/config")
 	matches := rx.FindAllStringSubmatch(string(content), -1)
 	for i := range matches {
 		fmt.Printf("\033[34mPushing to %s:\033[0m\n", matches[i][1])
 		cmd := exec.Command("git", "push", matches[i][1])
+		if *tag != "" {
+			cmd.Args = append(cmd.Args, "tag", *tag)
+		}
 		cmd.Stdout = os.Stdout
 		cmd.Stderr = os.Stderr
 		err := cmd.Run()
